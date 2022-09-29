@@ -1,0 +1,18 @@
+### Test root endpoint for an empty response
+GET {{baseUri}}
+
+> {%
+client.test("Test a 204 No content response", function() {
+    client.assert(response.status === 204, "Expected status of 204 was not returned.");
+});
+%}
+
+### Test for health check
+GET {{baseUri}}/ping
+Accept: application/json
+
+> {%
+client.test("Test that a pong is returned", function() {
+    client.assert(response.body.message === "pong", "No pong was returned");
+})
+%}
