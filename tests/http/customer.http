@@ -1,0 +1,11 @@
+### Retrieve customer information
+GET {{baseUri}}/customer
+Accept: application/json
+
+> {%
+client.test("Test to retrieve customer collection", function() {
+    client.assert(response.status === 200, "Expected a 200 Response Code");
+    client.assert(response.contentType === "application/json", "Expected JSON Response");
+    client.assert(response.body.length > 0, "Expected at least 1 customer entry");
+});
+%}

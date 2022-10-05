@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonBe\AzureRedisCachingTests;
+namespace DragonBe\AzureRedisCachingTests\Controller;
 
 use DragonBe\AzureRedisCaching\Controller\HomeController;
 use PHPUnit\Framework\TestCase;
