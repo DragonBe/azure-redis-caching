@@ -32,6 +32,27 @@ class CustomerRepositoryTest extends TestCase
     }
 
     /**
+     * Test to see if we can retrieve a single entity from the repository
+     *
+     * @return void
+     * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerRepository::__construct
+     * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerRepository::entity
+     */
+    public function testCanRetrieveSingleEntity(): void
+    {
+        $list = $this->createCustomerList();
+        $list->rewind();
+        $data = (array) $list->current();
+        $persistenceAdapter = $this->createStub(RepositoryAdapterInterface::class);
+        $persistenceAdapter->method('getEntity')->willReturn($data);
+        $customerRepository = new CustomerRepository($persistenceAdapter);
+        $entity = $customerRepository->entity();
+        $this->assertSame($data['id'], $entity['id']);
+        $this->assertSame($data['firstName'], $entity['firstName']);
+        $this->assertSame($data['lastName'], $entity['lastName']);
+    }
+
+    /**
      * Generate a list of customer details for testing
      *
      * @return Traversable
