@@ -18,7 +18,7 @@ class CutomerCommandTest extends TestCase
      *
      * @return void
      * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerCommand::__construct
-     * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerCommand::createCustomer
+     * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerCommand::create
      */
     public function testCustomerEntityCanBeCreated(): void
     {
@@ -26,7 +26,26 @@ class CutomerCommandTest extends TestCase
         $commandAdapter = $this->createStub(CommandAdapterInterface::class);
         $commandAdapter->method('create')->willReturn($data);
         $customerCommand = new CustomerCommand($commandAdapter);
-        $result = $customerCommand->createCustomer($data);
+        $result = $customerCommand->create($data);
+        $this->assertSame($data['id'], $result['id']);
+        $this->assertSame($data['firstName'], $result['firstName']);
+        $this->assertSame($data['lastName'], $result['lastName']);
+    }
+
+    /**
+     * Test that a customer entity can be updated
+     *
+     * @return void
+     * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerCommand::__construct
+     * @covers \DragonBe\AzureRedisCaching\Persistence\CustomerCommand::update
+     */
+    public function testCustomerEntityCanBeUpdated(): void
+    {
+        $data = $this->createCustomerData();
+        $commandAdapter = $this->createStub(CommandAdapterInterface::class);
+        $commandAdapter->method('update')->willReturn($data);
+        $customerCommand = new CustomerCommand($commandAdapter);
+        $result = $customerCommand->update($data['id'], $data);
         $this->assertSame($data['id'], $result['id']);
         $this->assertSame($data['firstName'], $result['firstName']);
         $this->assertSame($data['lastName'], $result['lastName']);

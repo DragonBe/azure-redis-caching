@@ -4,7 +4,7 @@ namespace DragonBe\AzureRedisCaching\Persistence;
 
 use DragonBe\AzureRedisCaching\Adapter\CommandAdapterInterface;
 
-class CustomerCommand
+class CustomerCommand implements CommandInterface
 {
     private CommandAdapterInterface $commandAdapter;
 
@@ -17,13 +17,19 @@ class CustomerCommand
     }
 
     /**
-     * Store a new customer in the persistence layer
-     *
-     * @param array $data
-     * @return array
+     * @inheritDoc
      */
-    public function createCustomer(array $data)
+    public function create(array $data = []): array
     {
         return $this->commandAdapter->create($data);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(string $referenceId, array $data = []): array
+    {
+        return $data;
+    }
+
 }

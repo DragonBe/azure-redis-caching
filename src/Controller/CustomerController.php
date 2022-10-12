@@ -15,6 +15,6 @@ class CustomerController extends BaseController
     {
         $data = file_get_contents(self::CUSTOMER_RAW_DATA);
         $response->getBody()->write($data);
-        return $response->withHeader('Content-Type', 'application/json');
+        return $response->withHeader('Content-Type', parent::DEFAULT_CONTENT_TYPE);
     }
 }

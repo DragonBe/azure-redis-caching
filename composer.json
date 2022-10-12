@@ -12,6 +12,7 @@
   "require": {
     "php": "^8.1",
     "ext-json": "*",
+    "laminas/laminas-hydrator": "^4.5",
     "php-di/php-di": "^6.4",
     "predis/predis": "^v1.1",
     "slim/psr7": "^1.5",
@@ -44,5 +45,10 @@
     "app-check": "Check for code standard violations with PHP_CodeSniffer",
     "app-quality": "Perform quality checks with Psalm",
     "app-all": "Run all application quality checks"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true
+    }
   }
 }
