@@ -18,9 +18,9 @@ interface RepositoryAdapterInterface
     /**
      * Retrieve a single entity from the persistent storage
      *
-     * @param string $query
+     * @param string $referenceId
      * @param array $arguments
      * @return array
      */
-    public function getEntity(string $query, array $arguments = []): array;
+    public function getEntity(string $referenceId, array $arguments = []): array;
 }
