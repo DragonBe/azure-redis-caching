@@ -15,9 +15,10 @@ interface CommandAdapterInterface
     /**
      * Update an existing entry in the storage
      *
+     * @param string $referenceField
      * @param string $referenceId
      * @param array $data
      * @return array
      */
-    public function update(string $referenceId, array $data): array;
+    public function update(string $referenceField, string $referenceId, array $data): array;
 }
