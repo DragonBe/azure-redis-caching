@@ -31,5 +31,4 @@ class CustomerCommand implements CommandInterface
     {
         return $data;
     }
-
 }
