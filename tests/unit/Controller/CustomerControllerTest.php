@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DragonBe\AzureRedisCachingTests\Controller;
 
 use DragonBe\AzureRedisCaching\Controller\CustomerController;
+use DragonBe\AzureRedisCaching\Service\CustomerService;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -26,7 +27,8 @@ class CustomerControllerTest extends TestCase
      * entries max.
      *
      * @return void
-     * @covers DragonBe\AzureRedisCaching\Controller\CustomerController::getCustomer
+     * @covers \DragonBe\AzureRedisCaching\Controller\CustomerController::__construct
+     * @covers \DragonBe\AzureRedisCaching\Controller\CustomerController::getCustomer
      */
     public function testCanListCustomers(): void
     {
@@ -37,7 +39,10 @@ class CustomerControllerTest extends TestCase
         $responseStub = $this->createStub(Response::class);
         $responseStub->method('getBody')->willReturn($streamStub);
         $responseStub->method('withHeader')->willReturnSelf();
-        $customerController = new CustomerController();
+
+        $customerService = $this->createStub(CustomerService::class);
+
+        $customerController = new CustomerController($customerService);
         $response = $customerController->getCustomer($requestStub, $responseStub);
         $this->assertInstanceOf(Response::class, $response);
         $actualCustomerData = json_decode($response->getBody()->getContents(), true);

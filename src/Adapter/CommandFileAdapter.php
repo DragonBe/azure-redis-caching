@@ -58,7 +58,7 @@ class CommandFileAdapter implements CommandAdapterInterface
     private function appendToFile(array $data): array
     {
         $jsonData = file_get_contents($this->source);
-        $existingData = json_decode($jsonData, true);
+        $existingData = (array) json_decode($jsonData, true);
         $existingData[] = $data;
         file_put_contents($this->source, json_encode($existingData));
         return $existingData;
@@ -75,10 +75,10 @@ class CommandFileAdapter implements CommandAdapterInterface
     private function updateFile(string $referenceField, string $referenceId, array $data): array
     {
         $jsonData = file_get_contents($this->source);
-        $existingData = json_decode($jsonData, true);
+        $existingData = (array) json_decode($jsonData, true);
         $dataSize = count($existingData);
         for ($i = 0; $i < $dataSize; $i++) {
-            if ($existingData[$i][$referenceField] === $referenceId) {
+            if (is_array($existingData[$i]) && $existingData[$i][$referenceField] === $referenceId) {
                 $existingData[$i] = $data;
             }
         }

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use DI\Bridge\Slim\Bridge;
 use DI\Container;
 use DI\ContainerBuilder;
 use DragonBe\AzureRedisCaching\Controller\CustomerController;
@@ -13,8 +14,7 @@ $builder = new ContainerBuilder();
 $builder->addDefinitions(__DIR__ . '/../config/container-config.php');
 $container = $builder->build();
 
-AppFactory::setContainer($container);
-$app = AppFactory::create();
+$app = Bridge::create($container);
 
 $app->get('/', [HomeController::class, 'getHome'])->setName('home');
 $app->get('/ping', [HomeController::class, 'getPing'])->setName('ping');

@@ -6,6 +6,7 @@ use DragonBe\AzureRedisCaching\Model\CustomerInterface;
 use DragonBe\AzureRedisCaching\Persistence\CommandInterface;
 use DragonBe\AzureRedisCaching\Persistence\RepositoryInterface;
 use Laminas\Hydrator\HydratorInterface;
+use Traversable;
 
 class CustomerService
 {
@@ -35,5 +36,15 @@ class CustomerService
     public function createCustomer(array $customerData): CustomerInterface
     {
         return $this->customer;
+    }
+
+    /**
+     * List all customers in the repository
+     *
+     * @return Traversable
+     */
+    public function getCustomerList(): Traversable
+    {
+        return $this->customerRepository->list();
     }
 }
